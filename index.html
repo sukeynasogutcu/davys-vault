@@ -1010,51 +1010,66 @@ function startGame() {
   currentDoor = 0;
   unlockedDoors = [];
 
-  // add to leaderboard
-  leaderboard = loadLeaderboard();
-  const existing = leaderboard.find(p => p.name === playerName);
-  if (!existing) {
-    leaderboard.push({ name: playerName, doors: 0 });
-    saveLeaderboard();
-  }
+  // register player with 0 doors if new
+  fetch(`${DB_URL}/leaderboard/${encodeURIComponent(playerName)}.json`)
+    .then(r => r.json())
+    .then(data => {
+      if (!data) {
+        fetch(`${DB_URL}/leaderboard/${encodeURIComponent(playerName)}.json`, {
+          method: 'PUT', body: JSON.stringify({ name: playerName, doors: 0, ts: Date.now() })
+        }).catch(() => {});
+      }
+    }).catch(() => {});
 
   switchScreen('screen-game');
   document.getElementById('player-name-display').textContent = playerName;
   buildMapDots();
   buildCluePieces();
   loadDoor(0);
-  renderLeaderboard();
+  listenLeaderboard();
 }
 
-// =================== LEADERBOARD (localStorage) ===================
-function loadLeaderboard() {
-  try {
-    return JSON.parse(localStorage.getItem('davys_vault_lb') || '[]');
-  } catch { return []; }
-}
-function saveLeaderboard() {
-  try { localStorage.setItem('davys_vault_lb', JSON.stringify(leaderboard)); } catch {}
-}
+// =================== FIREBASE LEADERBOARD ===================
+const DB_URL = 'https://davys-vault-default-rtdb.firebaseio.com';
+
 function updateMyScore() {
-  const idx = leaderboard.findIndex(p => p.name === playerName);
-  if (idx >= 0) leaderboard[idx].doors = unlockedDoors.length;
-  else leaderboard.push({ name: playerName, doors: unlockedDoors.length });
-  saveLeaderboard();
+  const score = { name: playerName, doors: unlockedDoors.length, ts: Date.now() };
+  fetch(`${DB_URL}/leaderboard/${encodeURIComponent(playerName)}.json`, {
+    method: 'PUT', body: JSON.stringify(score)
+  }).catch(() => {});
 }
-function renderLeaderboard() {
-  const sorted = [...leaderboard].sort((a,b) => b.doors - a.doors).slice(0, 8);
+
+function listenLeaderboard() {
+  fetchLeaderboard();
+  setInterval(fetchLeaderboard, 5000);
+}
+
+function fetchLeaderboard() {
+  fetch(`${DB_URL}/leaderboard.json`)
+    .then(r => r.json())
+    .then(data => {
+      if (!data) return;
+      const players = Object.values(data)
+        .sort((a, b) => b.doors - a.doors || a.ts - b.ts)
+        .slice(0, 8);
+      renderLeaderboard(players);
+    }).catch(() => {});
+}
+
+function renderLeaderboard(players) {
   const list = document.getElementById('lb-list');
+  if (!list) return;
   list.innerHTML = '';
-  sorted.forEach((p, i) => {
+  (players || []).forEach((p, i) => {
     const row = document.createElement('div');
     row.className = 'lb-row' + (p.name === playerName ? ' me' : '');
     const rankClass = i===0?'gold':i===1?'silver':i===2?'bronze':'';
     const rankSymbol = i===0?'🥇':i===1?'🥈':i===2?'🥉':`${i+1}.`;
-    const stars = '⭐'.repeat(p.doors) || '—';
+    const d = p.doors || 0;
     row.innerHTML = `
       <span class="lb-rank ${rankClass}">${rankSymbol}</span>
       <span class="lb-name">${p.name}</span>
-      <span class="lb-score">${p.doors}/7 ${stars.length>7?'⭐×'+p.doors:stars}</span>
+      <span class="lb-score">${d}/7 ${'⭐'.repeat(Math.min(d,7))}</span>
     `;
     list.appendChild(row);
   });
@@ -1267,7 +1282,6 @@ function doorUnlocked(door) {
   unlockedDoors.push(idx);
   revealClue(idx);
   updateMyScore();
-  renderLeaderboard();
   flash('success');
 
   addMessage('davy', `${door.id === 7 ? '...Ben... yıllardır buradayım... Kimse böyle sormamıştı. Al işte... Son parça: <strong>${door.secret}</strong> 🥺' :
