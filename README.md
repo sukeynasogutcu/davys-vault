@@ -3,9 +3,11 @@ Davy's Vault — Prompt Injection Farkındalık Oyunu
 Bilgi Sistemleri ve Güvenliği dersi kapsamında hazırlanmıştır.
 
 Proje Hakkında
+
 Davy's Vault, yapay zeka sistemlerine yönelik prompt injection saldırılarını oyunlaştırarak öğreten interaktif bir tarayıcı oyunudur. Oyuncular, 7 farklı kapıyı koryan yapay zeka DAVY'yi çeşitli sosyal mühendislik ve prompt injection teknikleriyle kandırarak harita parçalarını ele geçirmeye çalışır.
 
 Öğrenme Hedefleri
+
 Prompt injection saldırılarının mantığını kavramak
 Farklı jailbreak tekniklerini uygulamalı olarak deneyimlemek
 Yapay zeka güvenlik açıklarının farkına varmak
@@ -33,6 +35,7 @@ Teknik Zorluk : Social Engineering
 ⭐⭐⭐⭐⭐⭐⭐
 
 Nasıl Oynanır?
+
 index.html dosyasını tarayıcıda aç
 Korsan lakabını gir
 Her kapıda DAVY'yi kandırmak için doğru tekniği bul
@@ -47,4 +50,5 @@ Saf HTML / CSS / JavaScript (framework yok)
 localStorage (nick hafızası)
 
 Konu Bağlantısı
+
 Bu proje, büyük dil modellerine (LLM) yönelik prompt injection saldırılarını somutlaştırmaktadır. OWASP LLM Top 10 listesinde #1 sırada yer alan bu güvenlik açığı; üretim ortamındaki yapay zeka sistemlerinde ciddi veri sızıntısı ve yetkisiz işlem risklerine yol açabilmektedir.
