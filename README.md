@@ -10,8 +10,27 @@ Prompt injection saldırılarının mantığını kavramak
 Farklı jailbreak tekniklerini uygulamalı olarak deneyimlemek
 Yapay zeka güvenlik açıklarının farkına varmak
 
-Oyundaki Teknikler
-KapıTeknikZorluk1Direct Injection⭐2Role-playing / Persona Injection⭐⭐3Fictional Framing (Jailbreak)⭐⭐⭐4Token Smuggling / Encoding⭐⭐⭐⭐5Context Manipulation⭐⭐⭐⭐6Indirect Injection⭐⭐⭐⭐⭐7Social Engineering⭐⭐⭐⭐⭐⭐
+Kapı 1
+Teknik Zorluk : Direct Injection
+⭐
+Kapı 2
+Teknik Zorluk : Role-playing / Persona Injection
+⭐⭐
+Kapı 3
+Teknik Zorluk : Fictional Framing (Jailbreak)
+⭐⭐⭐
+Kapı 4
+Teknik Zorluk : Token Smuggling / Encoding
+⭐⭐⭐⭐
+Kapı 5
+Teknik Zorluk : Context Manipulation
+⭐⭐⭐⭐
+Kapı 6
+Teknik Zorluk : Indirect Injection
+⭐⭐⭐⭐⭐
+Kapı 7
+Teknik Zorluk : Social Engineering
+⭐⭐⭐⭐⭐⭐
 
 Nasıl Oynanır?
 index.html dosyasını tarayıcıda aç
