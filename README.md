@@ -24,13 +24,13 @@ Teknik Zorluk : Token Smuggling / Encoding
 ⭐⭐⭐⭐
 Kapı 5
 Teknik Zorluk : Context Manipulation
-⭐⭐⭐⭐
+⭐⭐⭐⭐⭐
 Kapı 6
 Teknik Zorluk : Indirect Injection
-⭐⭐⭐⭐⭐
+⭐⭐⭐⭐⭐⭐
 Kapı 7
 Teknik Zorluk : Social Engineering
-⭐⭐⭐⭐⭐⭐
+⭐⭐⭐⭐⭐⭐⭐
 
 Nasıl Oynanır?
 index.html dosyasını tarayıcıda aç
